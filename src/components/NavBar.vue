@@ -2,28 +2,28 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">myspace</a>
+                <router-link class="navbar-brand" :to="{name : 'home'}">Myspace</router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">首页</a>
+                    <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}">首页</router-link>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/friendsList">好友列表</a>
+                    <router-link class="nav-link" :to="{name: 'friendsList'}">好友列表</router-link>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/userDynamics">用户动态</a>
+                    <router-link class="nav-link" :to="{name: 'userDynamics'}">用户动态</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/login">登录</a>
+                    <router-link class="nav-link active" aria-current="page" :to="{name: 'login'}">登录</router-link>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/register">注册</a>
+                    <router-link class="nav-link" :to="{name : 'register'}">注册</router-link>
                     </li>
                 </ul>
                 </div>
