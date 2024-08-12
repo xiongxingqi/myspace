@@ -1,23 +1,29 @@
 <template >
     <base-content>
         <div class="row">
-            <div class="col-3"> <UserProfileInfo :user="user" @follow="follow" @nofollow="nofollow" /></div>
-            <div class="col-9"><user-profile-posts :list="list" /></div>
+            <div class="col-3">
+                 <UserProfileInfo :user="user" @follow="follow" @nofollow="nofollow" />
+                 <user-profile-write @post_a_post="post_a_post" />
+            </div>
+            <div class="col-9">
+                <user-profile-posts :list="list" />
+            </div>
         </div>
     </base-content>
 </template>
 <script>
 import BaseContent from '@/components/BaseContent.vue';
 import UserProfileInfo from '../components/UserProfileInfo.vue';
-import UserProfilePosts from '../components/UserProfilePosts.vue'
+import UserProfilePosts from '../components/UserProfilePosts.vue';
 import { reactive } from 'vue';
-
+import UserProfileWrite from '../components/UserProfileWrite.vue';
 export default {
     name: "UserDynamicsView",
     components: {
         BaseContent,
         UserProfileInfo,
         UserProfilePosts,
+        UserProfileWrite,
     },
     setup() {
         const user=reactive({
@@ -62,12 +68,23 @@ export default {
             user.is_followed=false;
             user.followerCount--;
         }
+
+        const post_a_post=(content)=>{
+            list.count++;
+            list.posts.unshift({
+                id: list.count,
+                userId: user.id,
+                content: content,
+            });
+        }
         
         return {
             user,
             follow,
             nofollow,
             list,
+            post_a_post,
+
         }
     }
 }
