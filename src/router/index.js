@@ -12,29 +12,33 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/friendsList',
+    path: '/friendsList/',
     name: 'friendsList',
     component: FriendsListView
   },
   {
-    path: '/login',
+    path: '/login/',
     name: 'login',
     component: LoginView
   },
   {
-    path: '/register',
+    path: '/register/',
     name: 'register',
     component: RegisterView
   },
   {
-    path: '/userDynamics',
+    path: '/userDynamics/',
     name: 'userDynamics',
     component: UserDynamicsView
   },
   {
-    path: '/notFound',
+    path: '/notFound/',
     name: 'notFound',
     component: NotFoundView
+  },
+  {
+    path: '/:matchAll(.*)',
+    redirect: { name: 'notFound' } //路径也行
   }
 ]
 
