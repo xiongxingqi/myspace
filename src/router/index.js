@@ -27,7 +27,7 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/userDynamics/',
+    path: '/userDynamics/:userId/',
     name: 'userDynamics',
     component: UserDynamicsView
   },
