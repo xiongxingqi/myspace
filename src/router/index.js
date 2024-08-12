@@ -27,7 +27,7 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/userDynamics/:userId/',
+    path: '/userDynamics/:userId/',//别忘修改引用处
     name: 'userDynamics',
     component: UserDynamicsView
   },
