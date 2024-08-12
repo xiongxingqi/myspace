@@ -22,6 +22,8 @@
 <script>
 import BaseContent from '@/components/BaseContent.vue'
 import { ref } from 'vue';
+import {useStore} from "vuex"
+import router from "@/router/index"
 export default {
     name: "LoginView",
     components : {
@@ -31,9 +33,21 @@ export default {
         const username=ref("");
         const password=ref("");
         const error_massage=ref("");
-
+        const store=useStore();
         const login=() =>{
-            console.log(username.value,password.value);
+            error_massage.value="";
+            store.dispatch("login",{  //使用store的dispatch方法调用action
+                username: username.value,
+                password: password.value,
+                success(){
+                    console.log("success");
+                    router.push({name: 'friendsList'});
+                },
+                error(){
+                    console.log("failed");
+                    error_massage.value="用户名或密码错误";
+                }
+            })
         }
         
         return {
