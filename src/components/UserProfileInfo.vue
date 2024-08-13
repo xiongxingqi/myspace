@@ -15,7 +15,9 @@
     
 </template>
 <script>
+import { useStore } from 'vuex'
 import BaseContent from './BaseContent.vue'
+import $ from 'jquery'
 export default {
     name: "UserProfileInfo",
     props: {
@@ -28,13 +30,43 @@ export default {
         BaseContent,
     },
     setup(props,context){
-
+        const store = useStore();
         const follow=()=>{
-            context.emit('follow');
+            $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type: "post",
+                headers: {
+                    'Authorization': 'Bearer ' + store.state.user.access,
+                },
+                data: {
+                    target_id: props.user.id,
+                },
+                success(resp){
+                    if(resp.result=="success"){
+                         context.emit('follow');
+                    }
+                }
+            });
+           
         }
 
         const nofollow=()=>{
-            context.emit('nofollow');
+             $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type: "post",
+                headers: {
+                    'Authorization': 'Bearer ' + store.state.user.access,
+                },
+                data: {
+                    target_id: props.user.id,
+                },
+                success(resp){
+                    if(resp.result=="success"){
+                            context.emit('nofollow');
+                    }
+                }
+            });
+           
         }
 
         return {
