@@ -15,15 +15,24 @@
                     <router-link class="nav-link" :to="{name: 'friendsList'}">好友列表</router-link>
                     </li>
                     <li class="nav-item">
-                    <router-link class="nav-link" :to="{name: 'userDynamics',params: {userId: 1} }">用户动态</router-link>
+                    <router-link class="nav-link" :to="{name: 'userDynamics',params: {userId: 1} }">用户动态</router-link> <!--路由传路径参数 -->
                     </li>
                 </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0">
+                <ul class="navbar-nav mb-2 mb-lg-0" v-if="!$store.state.user.is_login">  <!-- 如果未登录则显示登录注册按钮 -->
                     <li class="nav-item">
                     <router-link class="nav-link active" aria-current="page" :to="{name: 'login'}">登录</router-link>
                     </li>
                     <li class="nav-item">
                     <router-link class="nav-link" :to="{name : 'register'}">注册</router-link>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" v-else> <!-- 如果已登录则显示用户名退出按钮 -->
+                    <li class="nav-item">
+                    <router-link class="nav-link active" aria-current="page"
+                     :to="{name: 'userDynamics',params: {userId: $store.state.user.id } }">{{$store.state.user.username}}</router-link>
+                    </li> 
+                    <li class="nav-item">
+                    <a class="nav-link" style="cursor: pointer" @click="logout"> 退出</a>
                     </li>
                 </ul>
                 </div>
@@ -33,8 +42,22 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
+
 export default {
-    name: "NavBar"
+    name: "NavBar",
+    setup(){
+
+        const store=useStore(); 
+        const logout= () =>{
+            console.log("logout");
+            store.commit('logout');
+        }
+
+        return {
+            logout,
+        }
+    }
 }
 </script>
 

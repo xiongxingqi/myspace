@@ -17,7 +17,7 @@ import UserProfileInfo from '../components/UserProfileInfo.vue';
 import UserProfilePosts from '../components/UserProfilePosts.vue';
 import { reactive } from 'vue';
 import UserProfileWrite from '../components/UserProfileWrite.vue';
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'; //使用useRoute()函数获取route进而获得路径参数
 export default {
     name: "UserDynamicsView",
     components: {

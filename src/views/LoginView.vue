@@ -41,7 +41,7 @@ export default {
                 password: password.value,
                 success(){
                     console.log("success");
-                    router.push({name: 'friendsList'});
+                    router.push({name: 'friendsList'}); //使用router的push方法跳转到friendsList页面
                 },
                 error(){
                     console.log("failed");
