@@ -1,7 +1,7 @@
 <template >
     <BaseContent>
-        <div class="card card-list" v-for="user in users" :key="user.id">
-            <div class="card-body card-body-list">
+        <div class="card card-list" v-for="user in users" :key="user.id" >
+            <div class="card-body card-body-list" @click="open_user_profile(user.id)">
                 <div class="row">
                     <div class="col-1">
                         <img class="img-fluid" :src="user.photo" alt="头像">
@@ -19,6 +19,8 @@
 import {  ref } from 'vue';
 import BaseContent from '../components/BaseContent.vue';
 import $ from 'jquery'
+import router from '@/router/index.js';
+import { useStore } from 'vuex';
 export default {
     name: "FriendsListView",
     components: {
@@ -26,7 +28,7 @@ export default {
     },
     setup(){
         const users=ref([]);
-
+        const store=useStore();
         $.ajax({
             url: "https://app165.acapp.acwing.com.cn/myspace/userlist/",
             type: "get",
@@ -36,8 +38,24 @@ export default {
             }
         });
 
+    const open_user_profile= userId =>{
+        if(store.state.user.is_login){
+            router.push({
+                name: "userDynamics",
+                params: {
+                    userId: userId,
+                }
+            });
+        }else {
+            router.push({
+                name: "login",
+            });
+        }
+    }
+
         return {
             users,
+            open_user_profile,
         }
     }
 }
