@@ -18,6 +18,8 @@ import UserProfilePosts from '../components/UserProfilePosts.vue';
 import { reactive } from 'vue';
 import UserProfileWrite from '../components/UserProfileWrite.vue';
 import { useRoute } from 'vue-router'; //使用useRoute()函数获取route进而获得路径参数
+import $ from 'jquery';
+import { useStore } from 'vuex';
 export default {
     name: "UserDynamicsView",
     components: {
@@ -29,36 +31,43 @@ export default {
     setup() {
         const route=useRoute();
         const userId=route.params.userId;
-        console.log(userId);
-        const user=reactive({
-            id: 1,
-            username: "xiongxingqi",
-            firstName: "xiong",
-            lastName: "xingqi",
-            followerCount: 0,
-            is_followed: false,
+        // console.log(userId);
+        const user=reactive({});
+        const list=reactive({});
+        const store =useStore();
+        
+        $.ajax({
+            url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/",
+            type: "get",
+            headers:{
+                'Authorization': 'Bearer ' + store.state.user.access,
+            },
+            data: {
+                user_id: userId
+            },
+            success(resp){
+                // console.log(resp);
+                user.username=resp.username;
+                user.id=resp.id;
+                user.followerCount=resp.followerCount;
+                user.photo=resp.photo;
+                user.is_followed=resp.is_followed;
+            }
         });
 
-        const list=reactive({
-            count: 3,
-            posts: [
-                {
-                    id: 1,
-                    userId: 1,
-                    content: "他叫张朝南，乡村教师，朴实敦厚，典型的山里汉子。他有太多的事迹可以让那一方人永远记住他，", 
-                },
-                {
-                    id: 2,
-                    userId: 1,
-                    content: "直到暴发那场最大的泥石流。那一次，张朝南在生死边缘走了无数次，救下了二十一名学生，"
-                },
-                {
-                    id: 3,
-                    userId: 1,
-                    content: "此人叫凌厉。人如其名，他在那个圈子里绝对是人人谈之色变的人物。他是一个保镖，花高价雇他的人极其放心。他的身手，十个经过专业训练的大汉也不是对手，"
-                }
-                
-            ]
+        $.ajax({
+            url: "https://app165.acapp.acwing.com.cn/myspace/post/",
+            type: "get",
+            headers: {
+                'Authorization' : 'Bearer ' +store.state.user.access,
+            },
+            data: {
+                user_id: userId,
+            },
+            success(resp){
+                console.log(resp);
+                list.posts=resp;
+            }
         });
 
         const follow=()=>{

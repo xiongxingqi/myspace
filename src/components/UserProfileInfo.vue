@@ -1,11 +1,11 @@
 <template >
     <base-content>
         <div class="row">
-            <div class="col-3">
-                <img class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/377958_lg_7782d96956.png" alt="头像">
+            <div class="col-3 image-center">
+                <img class="img-fluid " :src="user.photo" alt="头像">
             </div>
             <div class="col-9">
-                <div class="userName">{{fullName}}</div>
+                <div class="userName">{{user.username}}</div>
                 <div class="fans"> 粉丝: {{user.followerCount}}</div>
             <button v-if="!user.is_followed"  @click="follow" type="button" class="btn btn-secondary">+关注</button>
             <button v-if="user.is_followed"  @click="nofollow" type="button" class="btn btn-secondary">已关注</button>
@@ -16,8 +16,6 @@
 </template>
 <script>
 import BaseContent from './BaseContent.vue'
-import { computed } from 'vue';
-
 export default {
     name: "UserProfileInfo",
     props: {
@@ -30,7 +28,6 @@ export default {
         BaseContent,
     },
     setup(props,context){
-        let fullName= computed(()=> props.user.firstName+' '+ props.user.lastName);
 
         const follow=()=>{
             context.emit('follow');
@@ -41,7 +38,6 @@ export default {
         }
 
         return {
-            fullName,
             follow,
             nofollow,
         };
@@ -67,5 +63,10 @@ button {
     padding: 2px 4px;
 }
 
+.image-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 </style>

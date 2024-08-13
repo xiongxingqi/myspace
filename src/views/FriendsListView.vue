@@ -3,7 +3,7 @@
         <div class="card card-list" v-for="user in users" :key="user.id" >
             <div class="card-body card-body-list" @click="open_user_profile(user.id)">
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-1 image-center">
                         <img class="img-fluid" :src="user.photo" alt="头像">
                     </div>
                     <div class="col-11">
@@ -87,6 +87,12 @@ img{
     font-size: 12px;
     height: 50%;
     color: gray;
+}
+
+.image-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
