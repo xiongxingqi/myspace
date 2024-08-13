@@ -1,7 +1,7 @@
 <template>
     <NavBar/>
     <div class="container">
-      <router-view/>
+      <router-view :key="$route.fullPath" /> <!-- 添加key属性，防止路由切换时，组件不重新渲染,路径参数不参与匹配-->
     </div>
   
 </template>

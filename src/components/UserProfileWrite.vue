@@ -10,16 +10,34 @@
     </div>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import $ from 'jquery';
 export default {
     name: "UserProfileWrite",
     setup(props,context) {
         const content=ref("");
-
+        const store=useStore();
         const post_a_post= ()=>{
             console.log(props);
-            context.emit("post_a_post",content.value);
-            content.value="";
+            $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/post/",
+                type: "post",
+                headers: {
+                    'Authorization': 'Bearer ' + store.state.user.access,
+                },
+                data: {
+                    content: content.value,
+                },
+                success(resp){
+                    if(resp.result==="success"){
+                        context.emit("post_a_post");
+                        content.value="";
+                    }
+                    
+                }
+            });
+           
         }
 
         return {
