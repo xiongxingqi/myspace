@@ -39,8 +39,8 @@
 </template>
 
 <script>
+import router from '@/router/index';
 import { useStore } from 'vuex';
-
 export default {
     name: "NavBar",
     setup(){
@@ -49,6 +49,7 @@ export default {
         const logout= () =>{
             // console.log("logout");
             store.commit('logout'); //通过store的commit方法调用mutation,类似于action中的context.commit
+            router.push({name: "home"});
         }
 
         return {
